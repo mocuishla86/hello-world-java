@@ -2,6 +2,9 @@ package com.mocuishla.music;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicCollectionTest {
@@ -35,11 +38,31 @@ public class MusicCollectionTest {
     }
 
     @Test
-    public void shouldGetClassicAlbums() {
+    public void shouldGetClassicAlbumsThatAreThoseEarlierThat1980() {
         MusicCollection musicCollection = new MusicCollection();
-        Album album = new Album("Grandes Exitos", new Artist("Julio Iglesias"), 1996);
+        musicCollection.addAlbum(new Album("Grandes Exitos", new Artist("Julio Iglesias"), 1996));
+        musicCollection.addAlbum(new Album("Ziggy", new Artist("Bowie"), 1972));
+        musicCollection.addAlbum(new Album("Grandes éxitos de Zenón", new Artist("Zenón Gonzáles"), 2010));
+        musicCollection.addAlbum(new Album("Abbey Road", new Artist("Beatles"), 1969));
+        musicCollection.addAlbum(new Album("Más", new Artist("Alejandro Sanz"), 1997));
 
-        musicCollection.addAlbum(album);
+        List<Album> oldies = musicCollection.getClassicalAlbums();
+
+        assertEquals(2, oldies.size());
+    }
+
+    @Test
+    public void shouldReturnAllTheArtistsFromMyCollection() {
+        MusicCollection musicCollection = new MusicCollection();
+        musicCollection.addAlbum(new Album("Grandes Exitos", new Artist("Julio Iglesias"), 1996));
+        musicCollection.addAlbum(new Album("Ziggy", new Artist("Bowie"), 1972));
+        musicCollection.addAlbum(new Album("Grandes éxitos de Zenón", new Artist("Zenón Gonzáles"), 2010));
+        musicCollection.addAlbum(new Album("Abbey Road", new Artist("Beatles"), 1969));
+        musicCollection.addAlbum(new Album("Más", new Artist("Alejandro Sanz"), 1997));
+
+        List<String> artists = musicCollection.getAllArtists();
+
+        assertEquals(List.of("Julio Iglesias", "Bowie", "Zenón Gonzáles", "Beatles", "Alejandro Sanz"), artists);
     }
 
 }

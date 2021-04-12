@@ -1,6 +1,8 @@
 package com.mocuishla.music;
 
 
+import javax.sound.midi.SysexMessage;
+
 public class Album {
 
     private String name;
@@ -21,5 +23,13 @@ public class Album {
                 "name='" + name + '\'' +
                 ", author='" + artist + '\'' +
                 '}';
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public Artist getArtist() {
+        return artist;
     }
 }

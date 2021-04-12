@@ -15,4 +15,8 @@ public class Artist {
                 "name='" + name + '\'' +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
 }
