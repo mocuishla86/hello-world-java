@@ -15,6 +15,9 @@ public class MusicCollection {
         albums.add(album);
     }
 
+    public void removeAlbum(Album album){
+        albums.remove(album);
+    }
     public List<Album> getClassicalAlbums() {
         return albums.stream().filter(album -> album.getYear() < 1980).collect(Collectors.toList());
     }

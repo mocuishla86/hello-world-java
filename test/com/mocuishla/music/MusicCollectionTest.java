@@ -38,6 +38,17 @@ public class MusicCollectionTest {
     }
 
     @Test
+    public void shouldRemoveAlbums(){
+        MusicCollection musicCollection = new MusicCollection();
+       Album album = new Album("Grandes Exitos", new Artist("Shakira"), 2002);
+
+        musicCollection.removeAlbum(album);
+        int numberOfAlbums = musicCollection.getNumberOfAlbums();
+
+        assertEquals(0, numberOfAlbums);
+    }
+
+    @Test
     public void shouldGetClassicAlbumsThatAreThoseEarlierThat1980() {
         MusicCollection musicCollection = new MusicCollection();
         musicCollection.addAlbum(new Album("Grandes Exitos", new Artist("Julio Iglesias"), 1996));
