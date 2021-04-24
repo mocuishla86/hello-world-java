@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,5 +76,28 @@ public class MusicCollectionTest {
 
         assertEquals(List.of("Julio Iglesias", "Bowie", "Zenón Gonzáles", "Beatles", "Alejandro Sanz"), artists);
     }
+
+    @Test
+    public void shouldReturnTheOldestAlbum(){
+        MusicCollection musicCollection = new MusicCollection();
+        musicCollection.addAlbum(new Album("Grandes Exitos", new Artist("Julio Iglesias"), 1996));
+        Album oldest = new Album("Ziggy", new Artist("Bowie"), 1972);
+        musicCollection.addAlbum(oldest);
+
+        Optional<Album> oldestAlbum = musicCollection.getOldest();
+
+        assertTrue(oldestAlbum.isPresent());
+        assertEquals(oldest, oldestAlbum.get());
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenNoAlbum(){
+        MusicCollection musicCollection = new MusicCollection();
+
+        Optional<Album> oldest = musicCollection.getOldest();
+
+        assertTrue(oldest.isEmpty());
+    }
+
 
 }

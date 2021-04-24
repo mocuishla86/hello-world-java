@@ -32,4 +32,8 @@ public class Album {
     public Artist getArtist() {
         return artist;
     }
+
+
+
+
 }

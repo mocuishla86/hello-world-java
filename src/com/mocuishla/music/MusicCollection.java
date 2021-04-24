@@ -1,7 +1,6 @@
 package com.mocuishla.music;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MusicCollection {
@@ -24,5 +23,10 @@ public class MusicCollection {
 
     public List<String> getAllArtists() {
         return albums.stream().map(album -> album.getArtist()).map(artist -> artist.getName()).collect(Collectors.toList());
+    }
+
+
+    public Optional<Album> getOldest() {
+      return albums.stream().min(Comparator.comparing(Album::getYear));
     }
 }
