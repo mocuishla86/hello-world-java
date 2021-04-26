@@ -9,7 +9,7 @@ public class Store {
 
     private ArrayList<Shoes> shoes;
 
-    private  ArrayList<Outfit> outfit;
+    private ArrayList<Outfit> outfit;
 
     public Store() {
         shirts = new ArrayList<Shirt>();
@@ -25,13 +25,12 @@ public class Store {
         outfit = new ArrayList<Outfit>();
     }
 
-    public Store(ArrayList<Shoes> shoes){
-      this.shoes = shoes;
+    public Store(ArrayList<Shoes> shoes) {
+        this.shoes = shoes;
     }
 
 
-
-    public Store(ArrayList<Shirt> shirts, ArrayList<Shoes> shoes){
+    public Store(ArrayList<Shirt> shirts, ArrayList<Shoes> shoes) {
         this.shirts = shirts;
         this.shoes = shoes;
     }
@@ -70,20 +69,18 @@ public class Store {
     }
 
     public Optional<Outfit> getTheCheapestOutfit() {
-        if(shirts.isEmpty()) {
+        if (shirts.isEmpty()) {
             return Optional.empty();
         }
-        else if(shoes.isEmpty()) {
-            //Tengo que devolver un option outfit relleno con un
-            // outfit con la camisa más barata y zapatos null
+        if (shoes.isEmpty()) {
             Shirt cheapestShirt = shirts.stream().min(Comparator.comparing(Shirt::getPrice)).get();
             Optional<Outfit> outfitJulito = Optional.of(new Outfit(cheapestShirt, null));
             return outfitJulito;
-        } else {
-            Shirt cheapestShirt = shirts.stream().min(Comparator.comparing(Shirt::getPrice)).get();
-            Shoes cheapestShoe = shoes.stream().min(Comparator.comparing(Shoes::getSize)).get();
-            Optional<Outfit> cheapestOutfit = Optional.of(new Outfit(cheapestShirt, cheapestShoe));
-            return cheapestOutfit;
         }
+
+        Shirt cheapestShirt = shirts.stream().min(Comparator.comparing(Shirt::getPrice)).get();
+        Shoes cheapestShoe = shoes.stream().min(Comparator.comparing(Shoes::getSize)).get();
+        Optional<Outfit> cheapestOutfit = Optional.of(new Outfit(cheapestShirt, cheapestShoe));
+        return cheapestOutfit;
     }
 }
