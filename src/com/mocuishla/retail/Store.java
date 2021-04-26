@@ -9,6 +9,8 @@ public class Store {
 
     private ArrayList<Shoes> shoes;
 
+    private  ArrayList<Outfit> outfit;
+
     public Store() {
         shirts = new ArrayList<Shirt>();
         shirts.add(new Shirt(100, "green"));
@@ -19,11 +21,15 @@ public class Store {
         shoes = new ArrayList<Shoes>();
         shoes.add(new Shoes("heels", 39));
         shoes.add(new Shoes("mocasines", 35));
+
+        outfit = new ArrayList<Outfit>();
     }
 
     public Store(ArrayList<Shoes> shoes){
       this.shoes = shoes;
     }
+
+
 
     public Store(ArrayList<Shirt> shirts, ArrayList<Shoes> shoes){
         this.shirts = shirts;
@@ -56,5 +62,18 @@ public class Store {
         int numberOfShirts = shirts.size();
         int numberOfShoes = shoes.size();
         return numberOfShirts + numberOfShoes;
+    }
+
+
+    public void addNewShirt(Shirt newShirt) {
+        shirts.add(newShirt);
+    }
+
+    public Optional<Outfit> getTheCheapestOutfit() {
+
+        Shirt cheapestShirt = shirts.stream().min(Comparator.comparing(Shirt::getPrice)).get();
+        Shoes cheapestShoe = shoes.stream().min(Comparator.comparing(Shoes::getSize)).get();
+        Optional<Outfit> cheapestOutfit = Optional.of(new Outfit(cheapestShirt, cheapestShoe));
+        return cheapestOutfit;
     }
 }

@@ -91,4 +91,45 @@ public class StoreTest {
         assertEquals(6, numberOfItems);
 
     }
+    // 1. Add a new method to the store to add a new shirt to the Store.
+    //    I will receive the shirt to be added as a parameter of the method
+    @Test
+    public void shouldAddShirtsToTheStore(){
+        Store store = new Store();
+        Shirt newShirt = new Shirt(30, "white");
+
+        store.addNewShirt(newShirt);
+        ArrayList<Shirt> numberOfTotalShirts = store.getAllShirts();
+
+        assertEquals(5, numberOfTotalShirts.size());
+    }
+
+    @Test
+    public void shouldGetTheCheapestOutfit(){
+        Store store = new Store();
+
+        Optional<Outfit> cheapestOutfit = store.getTheCheapestOutfit();
+
+        assertEquals(20, cheapestOutfit.get().getShirt().getPrice());
+        assertEquals("red", cheapestOutfit.get().getShirt().getColor());
+        assertEquals(35, cheapestOutfit.get().getShoes().getSize());
+        assertEquals("mocasines", cheapestOutfit.get().getShoes().getModel());
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenTheresNoOutfit(){
+        Store store = new Store();
+
+
+
+
+    }
+    //OUTFIT: Nuevo concepto.
+    // 2. Crea una clase llamada Outfit. Un outfit está representada por una Shirt y un par de zapatos (1 shoes).
+    //3. Crea un método llamaado GetCheapestOutfit que te devuelve un Outfit
+    // (mejor dicho, un Optional de empty) conteniendo la camisa y los zapatos más baratos de la tienda.
+      //Si no hay zapatos o camisa, devuelve un Optional.Empty
+    //4. Crea un método llamaado GetExtravagantOutfit que te devuelve un Outfit conteniendo la camisa más cara
+    // y los zapatos más grandes.
+    // Si no hay zapatos o camisa, devuelve un Optional.Empty
 }
