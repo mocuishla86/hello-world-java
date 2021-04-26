@@ -117,12 +117,26 @@ public class StoreTest {
     }
 
     @Test
-    public void shouldReturnEmptyWhenTheresNoOutfit(){
-        Store store = new Store();
+    public void shouldReturnEmptyOutfitWhenTheresAreNoShirtsOrShoes(){
+        Store store = new Store(new ArrayList<Shirt>(), new ArrayList<Shoes>());
 
+        Optional<Outfit> returnedOutfit = store.getTheCheapestOutfit();
 
+        assertTrue(returnedOutfit.isEmpty());
+    }
 
+    @Test
+    public void shouldReturnOutfitWithoutShoesWhenTheresAreNoShoesButThereAreShirts(){
+        ArrayList<Shirt> shirts = new ArrayList<>();
+        shirts.add(new Shirt(300, "red"));
+        shirts.add(new Shirt(100, "blue"));
+        Store store = new Store(shirts, new ArrayList<Shoes>());
 
+        Optional<Outfit> returnedOutfit = store.getTheCheapestOutfit();
+
+        assertEquals(100, returnedOutfit.get().getShirt().getPrice());
+        assertEquals("blue", returnedOutfit.get().getShirt().getColor());
+        assertNull(returnedOutfit.get().getShoes());
     }
     //OUTFIT: Nuevo concepto.
     // 2. Crea una clase llamada Outfit. Un outfit está representada por una Shirt y un par de zapatos (1 shoes).
@@ -131,5 +145,6 @@ public class StoreTest {
       //Si no hay zapatos o camisa, devuelve un Optional.Empty
     //4. Crea un método llamaado GetExtravagantOutfit que te devuelve un Outfit conteniendo la camisa más cara
     // y los zapatos más grandes.
-    // Si no hay zapatos o camisa, devuelve un Optional.Empty
+    // Si no hay zapatos pero sí hay camisa  devuelve un Optional.Empty
+    // Si no hay camisa pero sí hay zapatos  devuelve un Optional con los zapatos más grandes y sin camisa (es decir, null)
 }
