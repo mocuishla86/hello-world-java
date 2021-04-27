@@ -138,6 +138,48 @@ public class StoreTest {
         assertEquals("blue", returnedOutfit.get().getShirt().getColor());
         assertNull(returnedOutfit.get().getShoes());
     }
+
+    @Test
+    public void ShouldReturnOutfitWithTheMostExpensiveShirtAndTheBiggestShoes(){
+        Store store = new Store();
+
+        Optional<Outfit> returnedOutfit = store.getExtravagantOutfit();
+
+        assertEquals(200, returnedOutfit.get().getShirt().getPrice());
+        assertEquals("blue", returnedOutfit.get().getShirt().getColor());
+        assertEquals("heels", returnedOutfit.get().getShoes().getModel());
+        assertEquals(39, returnedOutfit.get().getShoes().getSize());
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenTheresNoShoesButTheresShirt(){
+        ArrayList<Shirt> shirts = new ArrayList<>();
+        shirts.add(new Shirt(300, "blue"));
+        shirts.add(new Shirt(200, "green"));
+
+        Store store = new Store(shirts, new ArrayList<Shoes>());
+
+        Optional<Outfit> returnedOutfit = store.getExtravagantOutfit();
+
+        assertTrue(returnedOutfit.isEmpty());
+    }
+
+    @Test
+    public void returnOutfitWithTheBiggestShoesWhenTheresShoesButNotShirt(){
+        ArrayList<Shoes> shoes = new ArrayList<>();
+        shoes.add(new Shoes("babuchas", 45));
+        shoes.add(new Shoes("tacones", 35));
+
+        Store store = new Store(new ArrayList<Shirt>(), shoes);
+
+        Optional<Outfit> returnedOutfit = store.getExtravagantOutfit();
+
+        assertEquals("babuchas", returnedOutfit.get().getShoes().getModel());
+        assertEquals(45, returnedOutfit.get().getShoes().getSize());
+        assertNull(returnedOutfit.get().getShirt());
+    }
+
+
     //OUTFIT: Nuevo concepto.
     // 2. Crea una clase llamada Outfit. Un outfit está representada por una Shirt y un par de zapatos (1 shoes).
     //3. Crea un método llamaado GetCheapestOutfit que te devuelve un Outfit
@@ -146,5 +188,6 @@ public class StoreTest {
     //4. Crea un método llamaado GetExtravagantOutfit que te devuelve un Outfit conteniendo la camisa más cara
     // y los zapatos más grandes.
     // Si no hay zapatos pero sí hay camisa  devuelve un Optional.Empty
-    // Si no hay camisa pero sí hay zapatos  devuelve un Optional con los zapatos más grandes y sin camisa (es decir, null)
+    // Si no hay camisa pero sí hay zapatos  devuelve un Optional
+    // con los zapatos más grandes y sin camisa (es decir, null)
 }

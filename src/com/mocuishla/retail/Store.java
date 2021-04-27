@@ -49,7 +49,7 @@ public class Store {
 
     public Optional<String> getTheMostExpensiveShirtColor() {
 
-        return shirts.stream().max(Comparator.comparing(Shirt::getPrice)).map(shirt -> shirt.getColor());
+        return shirts.stream().max(Comparator.comparing(Shirt::getPrice)).map(Shirt::getColor);
     }
 
     public ArrayList<Shoes> getShoes() {
@@ -74,13 +74,26 @@ public class Store {
         }
         if (shoes.isEmpty()) {
             Shirt cheapestShirt = shirts.stream().min(Comparator.comparing(Shirt::getPrice)).get();
-            Optional<Outfit> outfitJulito = Optional.of(new Outfit(cheapestShirt, null));
-            return outfitJulito;
+            return Optional.of(new Outfit(cheapestShirt, null));
         }
 
         Shirt cheapestShirt = shirts.stream().min(Comparator.comparing(Shirt::getPrice)).get();
         Shoes cheapestShoe = shoes.stream().min(Comparator.comparing(Shoes::getSize)).get();
-        Optional<Outfit> cheapestOutfit = Optional.of(new Outfit(cheapestShirt, cheapestShoe));
-        return cheapestOutfit;
+        return Optional.of(new Outfit(cheapestShirt, cheapestShoe));
+    }
+
+    public Optional<Outfit> getExtravagantOutfit() {
+        if(shoes.isEmpty()){
+            return Optional.empty();
+        }
+        if(shirts.isEmpty()){
+            Shoes biggestShoesSize = shoes.stream().max(Comparator.comparing(Shoes::getSize)).get();
+            return Optional.of(new Outfit(null, biggestShoesSize));
+        }
+
+        Shirt mostExpensiveShirt = shirts.stream().max(Comparator.comparing(Shirt::getPrice)).get();
+        Shoes biggestShoesSize = shoes.stream().max(Comparator.comparing(Shoes::getSize)).get();
+        Optional<Outfit> extravagantOutfit = Optional.of(new Outfit(mostExpensiveShirt, biggestShoesSize));
+        return extravagantOutfit;
     }
 }
