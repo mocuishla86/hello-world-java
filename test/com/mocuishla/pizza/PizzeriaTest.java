@@ -2,7 +2,9 @@ package com.mocuishla.pizza;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.PipedInputStream;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,12 +59,27 @@ public class PizzeriaTest {
         pizzeria.buyMozzarella();
         pizzeria.buyTomato();
 
-        Pizza margherita = pizzeria.cookMargherita();
-        List<String> margheritaIngredients = margherita.getIngredients();
+        Optional<Pizza> margherita = pizzeria.cookMargherita();
+        List<String> margheritaIngredients = margherita.get().getIngredients();
 
         assertEquals(List.of("tomato", "mozzarella"), margheritaIngredients);
         assertEquals(0, pizzeria.getMozzarella());
         assertEquals(0, pizzeria.getTomato());
 
     }
+
+    @Test
+    public void shouldReturnEmptyOfPizzaMargheritaIfTheresNoTomatoOrMozzarella(){
+        Pizzeria pizzeria = new Pizzeria();
+        pizzeria.buyMozzarella();
+
+        Optional<Pizza> margherita = pizzeria.cookMargherita();
+        int mozzarella = pizzeria.getMozzarella();
+
+        assertTrue(margherita.isEmpty());
+        assertEquals(1, mozzarella);
+    }
+
+
+
 }

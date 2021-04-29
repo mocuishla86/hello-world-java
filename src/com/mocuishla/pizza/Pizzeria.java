@@ -1,6 +1,7 @@
 package com.mocuishla.pizza;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Pizzeria {
 
@@ -41,9 +42,13 @@ public class Pizzeria {
         ham += 1;
     }
 
-    public Pizza cookMargherita() {
+    public Optional<Pizza> cookMargherita() {
+
+        if(tomato == 0 || mozzarella == 0){
+            return Optional.empty();
+        }
         tomato -= 1;
         mozzarella -=1;
-        return new Pizza(List.of("tomato", "mozzarella"));
+        return Optional.of(new Pizza(List.of("tomato", "mozzarella")));
     }
 }
