@@ -62,7 +62,7 @@ public class Pizzeria {
     }
 
     public Optional<Pizza> cookFormagio() {
-        if(mozzarella == 1 || mozzarella == 0){
+        if(mozzarella < 2){
             return Optional.empty();
         }
 
