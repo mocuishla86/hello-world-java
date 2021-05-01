@@ -51,4 +51,22 @@ public class Pizzeria {
         mozzarella -=1;
         return Optional.of(new Pizza(List.of("tomato", "mozzarella")));
     }
+
+    public Optional<Pizza> cookBianca() {
+        if(ham == 0 || mozzarella == 0){
+            return Optional.empty();
+        }
+        mozzarella -= 1;
+        ham -= 1;
+        return Optional.of(new Pizza(List.of("mozzarella", "ham")));
+    }
+
+    public Optional<Pizza> cookFormagio() {
+        if(mozzarella == 1 || mozzarella == 0){
+            return Optional.empty();
+        }
+
+        mozzarella -= 2;
+        return Optional.of(new Pizza(List.of("mozzarella", "mozzarella")));
+    }
 }
